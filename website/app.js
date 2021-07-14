@@ -49,6 +49,7 @@ const getData = async (APIurl, cityZip, APIkey) => {
     console.log("error", error);
   }
 };
+//display the information in ui dynamically 
 const displayUI = async () => {
   const request = await fetch("/data");
   try {
