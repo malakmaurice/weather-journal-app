@@ -1,6 +1,6 @@
 projectData = {};
 
-// setup express to use 
+// setup express to  use 
 const express = require('express');
 // instance of app from express
 const app = express();
@@ -21,12 +21,13 @@ var data = [];
 app.post('/sendData', function (request, response) {
   projectData = { tempreture: request.body.tempreture, feelings: request.body.feelings, newDate: request.body.newDate };
   data.push(projectData);
-});
+}); 
 // get request and send data to client 
 app.get('/data', function (req, res) {
   res.send(data);
 })
 
 app.get('/', function (request, response) { response.sendFile(__dirname + "website/index.html") });
+
 // listen at 8000 localhost
 app.listen(8000, function () { console.log("Hallloooooo"); });
