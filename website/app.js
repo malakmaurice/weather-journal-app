@@ -1,11 +1,12 @@
 /* Global Variables */
 // Create an instance of a new date 
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = (d.getMonth()+1) + '.' + d.getDate() + '.' + d.getFullYear();
 // api url and key from openweathermap
 const APIKEY = "e970177e9f1c23ca62f214ddb1efba59";
 const url = "https://api.openweathermap.org/data/2.5/weather?zip=";
 // sendDate function to localServer 
+
 const sendData = async (path = "", data = {}) => {
   const res = await fetch(path, {
     method: "POST",
@@ -34,14 +35,14 @@ function generatefun(e) {
     .then(function (data) {
       sendData("/sendData", {
         tempreture: data.main.temp,
-        feelings: feelings,
+        feelings: feelings, 
         newDate: newDate
       });
       displayUI()
     })
 }
 const getData = async (APIurl, cityZip, APIkey) => {
-  const response = await fetch(APIurl + cityZip + "&appid=" + APIkey);
+  const response = await fetch(APIurl + cityZip + "&units=metric"+"&appid=" + APIkey);
   try {
     const data = await response.json();
     return data;
@@ -54,10 +55,11 @@ const displayUI = async () => {
   const request = await fetch("/data");
   try {
     const data = await request.json();
+   // console.log(data);
     // getElements by id and add the content in innerhtml 
-    document.getElementById('content').innerHTML = "you feel like:" + data[data.length - 1].feelings;
-    document.getElementById("temp").innerHTML = " the temp is: " + data[data.length - 1].tempreture;
-    document.getElementById("date").innerHTML = "the date is: " + data[data.length - 1].newDate;
+    document.getElementById('content').innerHTML = "you feel like:" + data.feelings;
+    document.getElementById("temp").innerHTML = " the temp is: " + data.tempreture;
+    document.getElementById("date").innerHTML = "the date is: " + data.newDate;
   } catch (error) {
     console.log("error", error);
   }
